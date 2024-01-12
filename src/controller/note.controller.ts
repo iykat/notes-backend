@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { CreateNoteInput } from "../schema/note.schema";
-import { createNote } from "../service/note.service";
+import { createNote, getAllNotes } from "../service/note.service";
 import log from "../utils/logger";
 
 
@@ -20,6 +20,20 @@ export async function createNoteHandler(req: Request<{}, {}, CreateNoteInput>, r
         message: 'A note with this title already exist'
       })
     }
+  }
+}
 
+export async function getAllNotesHandler(req: Request, res: Response) {
+  try {
+    const notes = await getAllNotes()
+    return res.status(200).json({
+      status: 'success',
+      notes
+    })
+  } catch (error) {
+    log.error(error)
+    res.status(500).json({
+      status: 'failed',
+    })
   }
 }

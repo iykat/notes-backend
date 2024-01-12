@@ -6,3 +6,7 @@ export async function createNote(input: Partial<Note>) {
   return NoteModel.create(input)
 }
 
+export async function getAllNotes() {
+  return NoteModel.find()
+}
+
