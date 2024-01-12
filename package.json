@@ -15,7 +15,8 @@
     "lodash": "^4.17.21",
     "mongoose": "^8.0.4",
     "nanoid": "^5.0.4",
-    "pino": "^8.17.2"
+    "pino": "^8.17.2",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@types/config": "^3.3.3",
