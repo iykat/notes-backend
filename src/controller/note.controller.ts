@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { CreateNoteInput } from "../schema/note.schema";
-import { createNote, getAllNotes } from "../service/note.service";
+import { CreateNoteInput, GetNoteInput } from "../schema/note.schema";
+import { createNote, getAllNotes, getNote } from "../service/note.service";
 import log from "../utils/logger";
 
 
@@ -34,6 +34,22 @@ export async function getAllNotesHandler(req: Request, res: Response) {
     log.error(error)
     res.status(500).json({
       status: 'failed',
+    })
+  }
+}
+
+export async function getNoteHandler(req: Request<GetNoteInput>, res: Response) {
+  const { id } = req.params
+  try {
+    const note = await getNote(id)
+    return res.status(200).json({
+      status: 'success',
+      note
+    })
+
+  } catch (error) {
+    res.status(500).json({
+      status: 'failed'
     })
   }
 }

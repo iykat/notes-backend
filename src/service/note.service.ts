@@ -10,3 +10,6 @@ export async function getAllNotes() {
   return NoteModel.find()
 }
 
+export async function getNote(id: string) {
+  return NoteModel.findById(id)
+}

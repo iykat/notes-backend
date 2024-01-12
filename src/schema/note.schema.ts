@@ -9,5 +9,12 @@ export const createNoteSchema = object({
   })
 })
 
+export const getNoteSchema = object({
+  params: object({
+    id: string()
+  })
+})
+
 
 export type CreateNoteInput = TypeOf<typeof createNoteSchema>['body']
+export type GetNoteInput = TypeOf<typeof getNoteSchema>['params']
