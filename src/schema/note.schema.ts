@@ -16,5 +16,13 @@ export const getNoteSchema = object({
 })
 
 
+export const deleteNoteSchema = object({
+  params: object({
+    id: string()
+  })
+})
+
+
+export type DeleteNoteInput = TypeOf<typeof deleteNoteSchema>['params']
 export type CreateNoteInput = TypeOf<typeof createNoteSchema>['body']
 export type GetNoteInput = TypeOf<typeof getNoteSchema>['params']

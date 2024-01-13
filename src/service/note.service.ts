@@ -13,3 +13,7 @@ export async function getAllNotes() {
 export async function getNote(id: string) {
   return NoteModel.findById(id)
 }
+
+export async function deleteNote(id: string){
+  return NoteModel.findByIdAndDelete(id)
+}
