@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { CreateNoteInput, DeleteNoteInput, GetNoteInput } from "../schema/note.schema";
-import { createNote, deleteNote, getAllNotes, getNote } from "../service/note.service";
+import { CreateNoteInput, DeleteNoteInput, GetNoteInput, UpdateNoteInput } from "../schema/note.schema";
+import { createNote, deleteNote, getAllNotes, getNote, updateNote } from "../service/note.service";
 import log from "../utils/logger";
 
 
@@ -55,7 +55,7 @@ export async function getNoteHandler(req: Request<GetNoteInput>, res: Response) 
 }
 
 export async function deleteNoteHandler(req: Request<DeleteNoteInput>, res: Response) {
-  const {id} = req.params
+  const { id } = req.params
 
   try {
     await deleteNote(id)
@@ -66,6 +66,26 @@ export async function deleteNoteHandler(req: Request<DeleteNoteInput>, res: Resp
   } catch (error) {
     log.error(error)
     res.status(500).json({
+      status: 'failed'
+    })
+  }
+}
+
+export async function updateNoteHandler(req: Request<UpdateNoteInput['params'], {}, UpdateNoteInput['body']>, res: Response) {
+  const { id } = req.params
+  const input = req.body
+
+  try {
+    const updatedNote = await updateNote(id, input, { new: true })
+    return res.status(200).json({
+      status: 'success',
+      message: 'Note updated successfully',
+      noted: updatedNote
+    })
+
+  } catch (error) {
+    log.error(error)
+    return res.status(500).json({
       status: 'failed'
     })
   }
